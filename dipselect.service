@@ -1,0 +1,10 @@
+[Unit]
+Description=Change Files Based On DIPs
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/dipselect.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
