@@ -1,27 +1,43 @@
 #! /bin/sh
 
-# Get the DIPIDs
+# Generate a list of known DIPIDs
+for DIP in `ls /usr/local/share/dipselect/*.dip`
+do
+  # Get the list of known DIPs
+  DIPID=`basename $DIP .dip`
+  # Unless it is our template add it to the list of DIPIDs
+  KNOWNDIPS="$DIPID $KNOWNDIPS"
+done
+
+# Get the installed DIPIDs
 for DIP in `ls /sys/bus/w1/devices/2*/eeprom`
 do
   DIPID=`cut -c 44-76 < ${DIP}`
+  INSTALLEDDIPS="$DIPID $INSTALLEDDIPS"
+done
 
-  case ${DIPID} in
+# Get the not installed DIPIDs
+for DIPID in $KNOWNDIPS
+do
+  if `echo $INSTALLEDDIPS | grep -q $DIPID`  
+  then
+    # Do nothing
+    : 
+  else
+    ABSENTDIPS="$DIPID $ABSENTDIPS"
+  fi
+done
 
-    "PocketCHIP")
-      # Move the xorg.conf into place
-      rm -f /etc/X11/xorg.conf 
-      ln -s /etc/X11/xorg.conf.PocketCHIP /etc/X11/xorg.conf
-      ;;
+echo Known: $KNOWNDIPS
+echo Installed: $INSTALLEDDIPS
+echo Absent: $ABSENTDIPS
 
-    "TZATZIFFY")
-      # Move the xorg.conf into place
-      rm -f /etc/X11/xorg.conf 
-      ln -s /etc/X11/xorg.conf.Tzatziffy /etc/X11/xorg.conf
-      ;;
-
-    *) # Unknown DIP
-      ;;
-
-  esac
-done 
-
+# Call the Appropriate functions for the DIPs.
+for DIPID in $ABSENTDIPS
+do
+  /usr/local/share/dipselect/${DIPID}.dip ABSENT
+done
+for DIPID in $INSTALLEDDIPS
+do
+  /usr/local/share/dipselect/${DIPID}.dip PRESENT
+done

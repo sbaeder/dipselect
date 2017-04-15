@@ -1,0 +1,23 @@
+#! /bin/sh
+
+if [ $1 == "PRESENT" ]
+then
+  # What should happen if the dip is present
+
+  # Switch the Xorg.conf link
+  rm -f /etc/X11/xorg.conf && ln -s /etc/X11/xorg.conf.TZATZIFFY /etc/X11/xorg.conf
+
+  # Switch the window manager to Awesome
+  update-alternatives --set x-window-manager /usr/bin/xfwm4
+
+  # Switch the session manager to Awesome
+  update-alternatives --set x-session-manager /usr/bin/startxfce4
+
+fi
+
+if [ $1 == "ABSENT" ]
+then
+  # What should happen if the dip is absent
+  # Do Nothing for now
+  :
+fi
