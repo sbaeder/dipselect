@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Should add Vendor to the DIPID and switch it to numeric
+# But for now...
+
 # Generate a list of known DIPIDs
 for DIP in `ls /usr/local/share/dipselect/*.dip`
 do
@@ -35,8 +38,12 @@ echo Absent: $ABSENTDIPS
 # Call the Appropriate functions for the DIPs.
 for DIPID in $ABSENTDIPS
 do
-  /usr/local/share/dipselect/${DIPID}.dip ABSENT
+  if [ DIPID != "template" ]
+  then
+    /usr/local/share/dipselect/${DIPID}.dip ABSENT
+  fi
 done
+# template should never be installed
 for DIPID in $INSTALLEDDIPS
 do
   /usr/local/share/dipselect/${DIPID}.dip PRESENT

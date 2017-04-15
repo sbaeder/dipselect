@@ -4,10 +4,7 @@ if [ $1 == "PRESENT" ]
 then
   # What should happen if the dip is present
 
-  # Switch the Xorg.conf link
-  rm -f /etc/X11/xorg.conf && ln -s /etc/X11/xorg.conf.TZATZIFFY /etc/X11/xorg.conf
-
-  # Switch the window manager to xfwm4
+  # Switch the window manager to xfwm
   update-alternatives --set x-window-manager /usr/bin/xfwm4
 
   # Switch the session manager to xfce
