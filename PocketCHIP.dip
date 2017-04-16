@@ -11,7 +11,7 @@ then
   update-alternatives --set x-window-manager /usr/bin/awesome
 
   # Switch the session manager to Awesome
-  update-alternatives --set x-session-manager /usr/bin/awesome
+  update-alternatives --set x-session-manager /usr/bin/pocket-wm.start
 fi
 
 if [ $1 == "ABSENT" ]
