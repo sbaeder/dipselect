@@ -1,0 +1,13 @@
+#! /bin/sh
+
+if [ $1 == "PRESENT" ]
+then
+  # What should happen if the dip is present
+  :
+fi
+
+if [ $1 == "ABSENT" ]
+then
+  # What should happen if the dip is absent
+  :
+fi

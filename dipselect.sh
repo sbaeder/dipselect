@@ -9,7 +9,10 @@ do
   # Get the list of known DIPs
   DIPID=`basename $DIP .dip`
   # Unless it is our template add it to the list of DIPIDs
-  KNOWNDIPS="$DIPID $KNOWNDIPS"
+  if [ "$DIPID" != "template" ]
+  then
+    KNOWNDIPS="$DIPID $KNOWNDIPS"
+  fi
 done
 
 # Get the installed DIPIDs
@@ -34,9 +37,10 @@ done
 # Call the Appropriate functions for the DIPs.
 for DIPID in $ABSENTDIPS
 do
-  if [ DIPID != "template" ]
+  if [ "$DIPID" != "template" ]
   then
     if [ -x /usr/local/share/dipselect/${DIPID}.dip ]
+    then
       /usr/local/share/dipselect/${DIPID}.dip ABSENT
     fi
   fi
@@ -45,6 +49,7 @@ done
 for DIPID in $INSTALLEDDIPS
 do
   if [ -x /usr/local/share/dipselect/${DIPID}.dip ]
+  then
     /usr/local/share/dipselect/${DIPID}.dip PRESENT
   fi
 done
