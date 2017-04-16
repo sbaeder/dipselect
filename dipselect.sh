@@ -31,20 +31,20 @@ do
   fi
 done
 
-echo Known: $KNOWNDIPS
-echo Installed: $INSTALLEDDIPS
-echo Absent: $ABSENTDIPS
-
 # Call the Appropriate functions for the DIPs.
 for DIPID in $ABSENTDIPS
 do
   if [ DIPID != "template" ]
   then
-    /usr/local/share/dipselect/${DIPID}.dip ABSENT
+    if [ -x /usr/local/share/dipselect/${DIPID}.dip ]
+      /usr/local/share/dipselect/${DIPID}.dip ABSENT
+    fi
   fi
 done
 # template should never be installed
 for DIPID in $INSTALLEDDIPS
 do
-  /usr/local/share/dipselect/${DIPID}.dip PRESENT
+  if [ -x /usr/local/share/dipselect/${DIPID}.dip ]
+    /usr/local/share/dipselect/${DIPID}.dip PRESENT
+  fi
 done
