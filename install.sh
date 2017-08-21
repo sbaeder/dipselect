@@ -1,8 +1,11 @@
 #! /bin/sh
 
-echo This default installation assumes you used the CHIP 
-echo flash image.  Extra PocketCHIP packages can be installed
-echo with the PocketCHIP-setup.sh script provided.
+echo "Install dipselect service. Currently requires the"
+echo "GUI based OS image to read the eeproms on the DIPS."
+echo
+echo "Use PocketCHIPSetup.sh to add the necessary files"
+echo "to use this with a PocketCHIP 'dip'"
+echo
 echo Configurations have been provided for PocketCHIP, HDMI and
 echo TZATZIFFY DIPs.  A template has also been provided for
 echo other DIPs. These are kept in /usr/local/share/dipselect.
@@ -18,7 +21,7 @@ then
 	echo "w1_ds2431 already in autoload..."
 else
 	echo "w1_ds2431" >> /etc/module
-  echo "Module ws_d2431 has been added to read eeprom added..."
+        echo "Module ws_d2431 has been added to read eeprom ..."
 	echo "Please REBOOT NOW and re-run install.sh"
 	exit
 fi
